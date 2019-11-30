@@ -13,7 +13,7 @@ Want to start contributing? Read the [Build Process](#build-process), [How to Us
 - [How to Use In Projects](#how-to-use-in-projects)
 - [Changelog](#changelog)
 - [To Do](#to-do)
-- [Documentation](#)
+- [Documentation](https://github.com/davikawasaki/dotnetcore-http-wrapper/blob/master/docs/CustomHttpWrapperLibrary.md)
 - [Testing](#testing)
 
 ## Libraries Dependencies
