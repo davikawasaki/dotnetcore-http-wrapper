@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>    
+    <id>CustomHttpWrapperLibrary</id>
+    <version>0.1.0</version>
+    <title>Custom HTTP Wrapper Library</title>
+    <authors>Davi Kawasaki</authors>
+    <owners>davikawasaki</owners>
+    <licenseUrl>https://github.com/davikawasaki/dotnetcore-http-wrapper</licenseUrl>
+    <projectUrl>https://github.com/davikawasaki/dotnetcore-http-wrapper</projectUrl>
+    <iconUrl></iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HTTP Wrapper snippets used for REST API projects.</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Davi Kawasaki</copyright>
+    <tags>http requests apis services helpers csharp connectors</tags>
+    <dependencies>
+    </dependencies>
+    <summary></summary>
+  </metadata>
+  <files>
+    <file src="README.md" target="" />
+  </files>
+</package>
