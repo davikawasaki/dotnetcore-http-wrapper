@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AssemblyName>CustomHttpWrapperLibrary</AssemblyName>
+    <RootNamespace>CustomHttpWrapperLibrary</RootNamespace>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.3.0</Version>
+    <Product>Custom HTTP Wrapper Library</Product>
+    <Company>Davi Kawasaki</Company>
+    <Authors>Davi Kawasaki</Authors>
+    <PackageProjectUrl>https://github.com/davikawasaki/dotnetcore-http-wrapper</PackageProjectUrl>
+    <PackageIconUrl></PackageIconUrl>
+    <PackageLicenseUrl>https://github.com/davikawasaki/dotnetcore-http-wrapper</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/davikawasaki/dotnetcore-http-wrapper</RepositoryUrl>
+    <AssemblyVersion>0.0.3.0</AssemblyVersion>
+    <FileVersion>0.0.3.0</FileVersion>
+    <Description>HTTP Wrapper snippets used for personal projects.</Description>
+    <Copyright>Davi Kawasaki</Copyright>
+    <PackageTags>http requests apis services helpers csharp connectors</PackageTags>
+    <PreviousVersion>0.2.1</PreviousVersion>
+    <Configurations>Debug;Release;Testing</Configurations>
+    <NuGetCustomPath>C:\Users\davi.kawasaki\Programs\NuGet</NuGetCustomPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>CustomHttpWrapperLibrary.xml</DocumentationFile>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Vsxmd" Version="1.4.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PostBuildEventDependsOn>
+      $(PostBuildEventDependsOn);
+      PostBuildMacros;
+    </PostBuildEventDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Exec Command="call &quot;$(SolutionDir)scripts\backupCSharpOldPackages.bat&quot; $(SolutionDir) CustomHttpWrapperLibrary\ bin\Release\ $(TargetFramework) Versions\ $(PreviousVersion)" />
+  </Target>
+
+  <Target Name="PostBuild" AfterTargets="Pack" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Exec Command="call &quot;$(SolutionDir)scripts\buildCopyCSharpPackages.bat&quot; $(SolutionDir) $(ProjectName) bin\Release\ $(TargetFramework) &quot;\\i02233\filesvcs-01$\Custom\DK\DK.AirSeaHorsens\XpExportHorsens\Arbejdsark\ScriptsLibrary\packages\CustomHttpWrapperLibrary\&quot; $(Version) docs\versions\ $(NuGetCustomPath) M:\DK.AirSeaHorsens\XpExportHorsens\Arbejdsark\ScriptsLibrary\packages" />
+  </Target>
+
+</Project>
