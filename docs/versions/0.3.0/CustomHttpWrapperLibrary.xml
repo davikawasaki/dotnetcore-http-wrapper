@@ -1,0 +1,715 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CustomHttpWrapperLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:CustomHttpWrapperLibrary.BaseHttpClient">
+            <summary>
+            Base HTTP singleton client.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.BaseHttpClient.Client">
+            <summary>
+            HttpClient singleton instance.
+            </summary>
+        </member>
+        <member name="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientHandler">
+            <summary>
+            Default message handler for HttpClient singleton.
+            </summary>
+        </member>
+        <member name="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientCookies">
+            <summary>
+            Default cookie container for HttpClient singleton.
+            </summary>
+        </member>
+        <member name="P:CustomHttpWrapperLibrary.BaseHttpClient.UseCookies">
+            <summary>
+            Default cookies usage status for HttpClient singleton.
+            </summary>
+        </member>
+        <member name="P:CustomHttpWrapperLibrary.BaseHttpClient.DefaultRequestHeaders">
+            <summary>
+            Default list of request headers to be used for HttpClient singleton.
+            </summary>
+        </member>
+        <member name="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientBaseAddress">
+            <summary>
+            Default HTTP base address to be used for HttpClient singleton.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.#ctor(System.Boolean,System.Net.CookieContainer,System.Net.Http.HttpClientHandler,System.Collections.Generic.List{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.String)">
+            <summary>
+            Main singleton constructor for BaseHttpClient. Calls <see cref="M:CustomHttpWrapperLibrary.BaseHttpClient.GetHttpClient(System.Boolean,System.Net.CookieContainer,System.Net.Http.HttpClientHandler,System.Collections.Generic.List{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.String)"/> method to instantiate a HttpClient only if an instance does not exist.
+            </summary>
+            <param name="useCookies">Cookies usage status to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.UseCookies"/>.</param>
+            <param name="clientCookies">Cookies list to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientCookies"/>.</param>
+            <param name="clientHandler">HttpClient handler to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientHandler"/>.</param>
+            <param name="clientDefaultRequestHeaders">Default HttpClient request headers to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.DefaultRequestHeaders"/>.</param>
+            <param name="clientBaseAddress">Base HttpClient address to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientBaseAddress"/>.</param>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetHttpClient(System.Boolean,System.Net.CookieContainer,System.Net.Http.HttpClientHandler,System.Collections.Generic.List{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.String)">
+            <summary>
+            Singleton creation or getter method depending on instance existence.
+            </summary>
+            <param name="useCookies">Cookies usage status to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.UseCookies"/>.</param>
+            <param name="clientCookies">Cookies list to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientCookies"/>.</param>
+            <param name="clientHandler">HttpClient handler to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientHandler"/>.</param>
+            <param name="clientDefaultRequestHeaders">Default HttpClient request headers to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.DefaultRequestHeaders"/>.</param>
+            <param name="clientBaseAddress">Base HttpClient address to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientBaseAddress"/>.</param>
+            <returns>HttpClient singleton.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.DisposeClient">
+            <summary>
+            HttpClient singleton release with all class properties.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.UpdateHttpClientHandler(System.Boolean,System.Collections.Generic.List{System.Net.Cookie},System.Collections.Generic.List{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.String)">
+            <summary>
+            Release HttpClient singleton and update inner properties, such as the HttpClient handler.
+            </summary>
+            <param name="useCookies">Cookies usage status to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.UseCookies"/>.</param>
+            <param name="clientCookieList"><see cref="T:System.Net.Cookie"/> list to be iterated and setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientCookies"/>.</param>
+            <param name="clientDefaultRequestHeaders">Default HttpClient request headers to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.DefaultRequestHeaders"/>.</param>
+            <param name="clientBaseAddress">Base HttpClient address to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientBaseAddress"/>.</param>
+            <returns>HttpClient singleton.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.UpdateHttpClientHandler(System.Boolean,System.Net.CookieContainer,System.Collections.Generic.List{System.Net.Http.Headers.MediaTypeWithQualityHeaderValue},System.String)">
+            <summary>
+            Release HttpClient singleton and update inner properties, such as the HttpClient handler.
+            </summary>
+            <param name="useCookies">Cookies usage status to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.UseCookies"/>.</param>
+            <param name="clientCookies">Cookies' list to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientCookies"/>.</param>
+            <param name="clientDefaultRequestHeaders">Default HttpClient request headers to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.DefaultRequestHeaders"/>.</param>
+            <param name="clientBaseAddress">Base HttpClient address to be setted in <see cref="P:CustomHttpWrapperLibrary.BaseHttpClient.ClientBaseAddress"/>.</param>
+            <returns>HttpClient singleton.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetAsyncFullResponse(System.String,System.Boolean)">
+            <summary>
+            Request asynchronously a response as HttpContent through a GET request.
+            </summary>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="onlySuccessResponses">Enable or not a trigger to throw an exception if the response is not a success.</param>
+            <returns>The final response <see cref="T:System.Net.Http.HttpResponseMessage"/> in a async Task.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetAsyncHttpContent(System.String,System.Boolean)">
+            <summary>
+            Request asynchronously a response content as HttpContent through a GET request.
+            </summary>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="onlySuccessResponses">Enable or not a trigger to throw an exception if the response is not a success.</param>
+            <returns>The final response HttpContent in a async Task.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetAsyncContentStr(System.String,System.Boolean)">
+            <summary>
+            Request asynchronously a response content as string through a GET request.
+            </summary>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="onlySuccessResponses">Enable or not a trigger to throw an exception if the response is not a success.</param>
+            <returns>The final response HttpContent in a async Task.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetAsyncFromJSONToObject``1(System.String,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Request asynchronously a response from JSON to a dynamic &lt;T&gt; object through a POST request.
+            </summary>
+            <typeparam name="T">Dynamic type param to be used as a response object.</typeparam>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="srEnc">(Optional, default as null) <see cref="T:System.Text.Encoding"/> type to deserialize an object from JSON.</param>
+            <param name="onlySuccessResponses">(Optional, default as true) Enable or not a trigger to throw an exception if the response is not a success.</param>
+            <returns>HttpContent response deserialized as dynamic &lt;T&gt; object.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.GetAsyncDownloadFile(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Request asynchronously a file through a GET method and download the file to a specific drive path.
+            </summary>
+            <param name="requestUri">URI path to execute the HTTP file request.</param>
+            <param name="drivePath">Drive path to save the downloaded file.</param>
+            <param name="backupFileName">(Optional, default as null) Set the file as a backup name in case the downloaded file does not contain a <see cref="P:System.Net.Http.HttpResponseMessage.Content"/> Headers.ContentDisposition.FileName.</param>
+            <param name="overrideFileName">(Optional, default as null) Ignore <see cref="P:System.Net.Http.HttpResponseMessage.Content"/> Headers.ContentDisposition.FileName and set manually the downloaded file name.</param>
+            <param name="overrideFileExtension">(Optional, default as null) Ignore <see cref="P:System.Net.Http.HttpResponseMessage.Content"/> Headers.ContentDisposition.FileName extension and set manually the downloaded file extension.</param>
+            <returns>Full drive path which was saved the downloaded file (or null, if the file was not saved).</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.PostAsyncFormData(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Request asynchronously a <see cref="T:System.Net.Http.HttpResponseMessage"/> through a POST request passing FormData basic info.
+            </summary>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="postParameters"><see cref="T:System.Collections.Generic.Dictionary`2"/> of double strings with parameters to be send as a POST request.</param>
+            <returns>Asynchronous <see cref="T:System.Net.Http.HttpResponseMessage"/> directly from POST request.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:CustomHttpWrapperLibrary.BaseHttpClient.PostAsyncFormData(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.Text.Encoding)" -->
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.PostAsyncJSON``1(System.String,``0,System.Text.Encoding,System.String,System.String)">
+            <summary>
+            Request asynchronously a <see cref="T:System.Net.Http.HttpResponseMessage"/> through a POST request passing a serialized dynamic &lt;T&gt; object.
+            </summary>
+            <typeparam name="T">Dynamic type param to be used as a response object.</typeparam>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="bodyObj">Dynamic &lt;T&gt; object to be sent as a body request.</param>
+            <param name="srEnc">(Optional, default as null) <see cref="T:System.Text.Encoding"/> type to deserialize an object from JSON.</param>
+            <param name="mediaTypeQualityHeader">(Optional, default as null) <see cref="T:System.Net.Http.StringContent"/> headers content-type to be used as a <see cref="T:System.Net.Http.HttpRequestMessage"/> and <see cref="T:System.Net.Http.StringContent"/> media type content headers.</param>
+            <param name="mediaTypeCharset">(Optional, default as null) <see cref="T:System.Net.Http.StringContent"/> headers content-type charset to be used as a <see cref="T:System.Net.Http.HttpRequestMessage"/> and <see cref="T:System.Net.Http.StringContent"/> charset content headers.</param>
+            <returns>Asynchronous <see cref="T:System.Net.Http.HttpResponseMessage"/> directly from POST request.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.PostAsyncFromJSONToObject``2(System.String,``0,System.Text.Encoding,System.String,System.String,System.Boolean)">
+            <summary>
+            Request asynchronously a <see cref="T:System.Net.Http.HttpResponseMessage"/> through a POST request passing a serialized dynamic &lt;T&gt; object and receiving a deserialized &lt;U&gt; dynamic object.
+            </summary>
+            <typeparam name="T">Dynamic type param to be used as a request object.</typeparam>
+            <typeparam name="U">Dynamic type param to be used as a response object.</typeparam>
+            <param name="path">URI path to asynchronously execute a GET request.</param>
+            <param name="bodyObj">Dynamic &lt;T&gt; object to be sent as a body request.</param>
+            <param name="srEnc">(Optional, default as null) <see cref="T:System.Text.Encoding"/> type to deserialize an object from JSON.</param>
+            <param name="mediaTypeQualityHeader">(Optional, default as null) <see cref="T:System.Net.Http.StringContent"/> headers content-type to be used as a <see cref="T:System.Net.Http.HttpRequestMessage"/> and <see cref="T:System.Net.Http.StringContent"/> media type content headers.</param>
+            <param name="mediaTypeCharset">(Optional, default as null) <see cref="T:System.Net.Http.StringContent"/> headers content-type charset to be used as a <see cref="T:System.Net.Http.HttpRequestMessage"/> and <see cref="T:System.Net.Http.StringContent"/> charset content headers.</param>
+            <param name="onlySuccessResponses">(Optional, default as true) Enable or not a trigger to throw an exception if the response is not a success.</param>
+            <returns>Asynchronous serialized &lt;U&gt; dynamic object directly from POST request.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.ConstructGETPathRequestWithParamsFromObject``1(System.String,``0,System.String,System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get properties or <see cref="T:System.Runtime.Serialization.DataMemberAttribute"/> (and their respective values) of an object and parameterize them as path search arguments in a GET method request.
+            </summary>
+            <typeparam name="T">Dynamic type param to be extracted its respective properties.</typeparam>
+            <param name="subPath">Main raw URI path without the search params.</param>
+            <param name="obj">Dynamic &lt;T&gt; object to be extracted its respective properties.</param>
+            <param name="customModuleNameSpace">Specific module name space used to get a project assembly info through <see cref="P:System.AppDomain.CurrentDomain"/> Load function. Check <see cref="N:System.Reflection"/> pattern to understand assembly method calls.</param>
+            <param name="customModuleNameFn">Specific module name function used to get a project assembly info through <see cref="M:System.Type.GetMethod(System.String)"/>. Check <see cref="N:System.Reflection"/> pattern to understand assembly method calls.</param>
+            <param name="paramsFromDataMember">(Optional, default false) Definition to whether get the params attribute and value from a <see cref="T:System.Runtime.Serialization.DataMemberAttribute"/> or not.</param>
+            <param name="generateTimeSpanAttr">(Optional, default null) Attribute name if an extra <see cref="T:System.TimeSpan"/> parameter has to be added to the search path.</param>
+            <param name="generateTimeSpanValue">(Optional, default null) Attribute value if an extra <see cref="T:System.TimeSpan"/> parameter has to be added to the search path.</param>
+            <returns>Constructed GET method URL path with the search params added and escaped (check <see cref="M:System.Uri.EscapeDataString(System.String)"/> for more info.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpClient.SetMediaTypeHeaderCharset(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue,System.String)">
+            <summary>
+            Static method to set a <see cref="T:System.Net.Http.Headers.MediaTypeWithQualityHeaderValue"/> charset value.
+            </summary>
+            <param name="mediaType"><see cref="T:System.Net.Http.Headers.MediaTypeWithQualityHeaderValue"/> instance to be changed.</param>
+            <param name="charsetVal">Charset value to be assigned to a <see cref="T:System.Net.Http.Headers.MediaTypeWithQualityHeaderValue"/> instance.</param>
+            <returns><see cref="T:System.Net.Http.Headers.MediaTypeWithQualityHeaderValue"/> instance changed with a charset value.</returns>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.BaseHttpWebRequest">
+            <summary>
+            Static class for HttpWebRequests pre-configured HTTP calls.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.GETWebResponse(System.String,System.String,System.String,System.String,System.Net.CookieContainer,System.Boolean)">
+            <summary>
+            Execute a GET <see cref="T:System.Net.HttpWebRequest"/> method according to specific configurations.
+            </summary>
+            <param name="url">URI path to execute the HTTP file request.</param>
+            <param name="headerAccept">(Optional) Set <see cref="P:System.Net.HttpWebRequest.Accept"/> HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="contentTypeValue">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="contentTypeCharset">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> charset HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="cookieContainer">(Optional) Associate a <see cref="T:System.Net.CookieContainer"/> to the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="allowAutoRedirect">(Optional) Set if the <see cref="T:System.Net.HttpWebRequest"/> should or not follow redirection responses.</param>
+            <returns>Instance of <see cref="T:System.Net.HttpWebResponse"/> or an exception if the GET method request wasn't succesfull.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.POSTWebRequest(System.String,System.Byte[],System.String,System.String,System.Net.CookieContainer,System.Boolean)">
+            <summary>
+            Execute a POST <see cref="T:System.Net.HttpWebResponse"/> method with a <see cref="T:System.Byte"/> array content data to be sent through the request.
+            </summary>
+            <param name="url">URI path to execute the HTTP file request.</param>
+            <param name="contentData">Content data in <see cref="T:System.Byte"/> array format to be instanteneously written in a <see cref="T:System.IO.Stream"/>.</param>
+            <param name="contentTypeValue">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="contentTypeCharset">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> charset HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="cookieContainer">(Optional) Associate a <see cref="T:System.Net.CookieContainer"/> to the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="allowAutoRedirect">(Optional) Set if the <see cref="T:System.Net.HttpWebRequest"/> should or not follow redirection responses.</param>
+            <returns>Instance of <see cref="T:System.Net.HttpWebResponse"/> or an exception if the POST method request wasn't succesfull.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.POSTWebRequest(System.String,System.String,System.String,System.String,System.Text.Encoding,System.Net.CookieContainer,System.Boolean)">
+            <summary>
+            Execute a POST <see cref="T:System.Net.HttpWebResponse"/> method with a string content data to be sent through the request.
+            </summary>
+            <param name="url">URI path to execute the HTTP file request.</param>
+            <param name="contentData">Content data in string format. Needs to be converted to an array of bytes so that, afterwards, can be written in a <see cref="T:System.IO.Stream"/>.</param>
+            <param name="contentTypeValue">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="contentTypeCharset">(Optional) Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> charset HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="enc">(Optional) Encoding chosen to transform the content data from a string format to an array of bytes.</param>
+            <param name="cookieContainer">(Optional) Associate a <see cref="T:System.Net.CookieContainer"/> to the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="allowAutoRedirect">(Optional) Set if the <see cref="T:System.Net.HttpWebRequest"/> should or not follow redirection responses.</param>
+            <returns>Instance of <see cref="T:System.Net.HttpWebResponse"/> or an exception if the POST method request wasn't succesfull.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.POSTMultipartFormDataWebRequest(System.String,System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.Net.CookieContainer,System.Text.Encoding,System.Boolean)">
+            <summary>
+            Execute a POST <see cref="T:System.Net.HttpWebResponse"/> method with a Multipart form data to be sent through the request.
+            </summary>
+            <remarks>
+            Check forum post for examples and more details
+            https://briangrinstead.com/blog/multipart-form-post-in-c/
+            </remarks>
+            <param name="url">URI path to execute the HTTP file request.</param>
+            <param name="postParameters"><see cref="T:System.Collections.Generic.Dictionary`2"/> of string and object with parameters to be send as a POST request.</param>
+            <param name="userAgent">(Optional) Request user agent used in the request.</param>
+            <param name="cookieContainer">(Optional) Associate a <see cref="T:System.Net.CookieContainer"/> to the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="encoding">(Optional) Encoding chosen to transform the content data from a string format to an array of bytes.</param>
+            <param name="allowAutoRedirect">(Optional) Set if the <see cref="T:System.Net.HttpWebRequest"/> should or not follow redirection responses.</param>
+            <returns>Instance of <see cref="T:System.Net.HttpWebResponse"/> or an exception if the <see cref="T:System.Net.HttpWebRequest"/> is not a HTTP request.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.PostForm(System.String,System.Byte[],System.String,System.String,System.Net.CookieContainer,System.Boolean)">
+            <summary>
+            Create the POST form data and execute the <see cref="T:System.Net.HttpWebRequest"/>.
+            </summary>
+            <param name="url">URI path to execute the HTTP file request.</param>
+            <param name="formData">Form data constructed as an array of bytes from a stream writing.</param>
+            <param name="contentType">Set <see cref="P:System.Net.HttpWebRequest.ContentType"/> HTTP header for the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="userAgent">(Optional) Request user agent used in the request.</param>
+            <param name="cookieContainer">(Optional) Associate a <see cref="T:System.Net.CookieContainer"/> to the specific <see cref="T:System.Net.HttpWebRequest"/>.</param>
+            <param name="allowAutoRedirect">(Optional) Set if the <see cref="T:System.Net.HttpWebRequest"/> should or not follow redirection responses.</param>
+            <returns>Instance of <see cref="T:System.Net.HttpWebResponse"/> or an exception if the <see cref="T:System.Net.HttpWebRequest"/> is not a HTTP request.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.BaseHttpWebRequest.GetMultipartFormData(System.Collections.Generic.Dictionary{System.String,System.Object},System.String,System.Text.Encoding)">
+            <summary>
+            Convert a <see cref="T:System.Collections.Generic.Dictionary`2"/> of parameters for a POST request directly into a byte array of data to be sent with the right formats.
+            </summary>
+            <param name="postParameters"><see cref="T:System.Collections.Generic.Dictionary`2"/> of string and object values to be converted.</param>
+            <param name="boundary">Standard text with GUID that needs to be appended to a form data request.</param>
+            <param name="encoding">Encoding used for <see cref="T:System.IO.Stream"/> write and read commands.</param>
+            <returns>Array of bytes with the data according to the choosen Encoding.</returns>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper">
+            <summary>
+            Helper with media type names separated by modules: text, application, image, web and encoding.
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text">
+            <summary>
+            Specifies the type of text data in an email message attachment.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.Plain">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in plain text format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.Html">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in HTML format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.Xml">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in XML format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.RichText">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in Rich Text Format (RTF).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.Css">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in Cascading Style Sheets (CSS).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Text.Csv">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Text data is in Comma-Seperated Values (CSV).
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application">
+            <summary>
+            Specifies the kind of application data in an email message attachment.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Soap">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a SOAP document.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Octet">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is not interpreted.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Rtf">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is in Rich Text Format (RTF).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Pdf">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is in Portable Document Format (PDF).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Zip">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is in a zip compressed file.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Json">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Javascript Object Notation document (JSON).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Xml">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is an Extensible Markup Language document (XML).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.SevenZip">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a 7zip compressed file.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Jar">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Java Archive File (JAR).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.JavaVM">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Java Bytecode File (JVM class).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Jnlp">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Java Network Launching Protocol File (JNLP).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Javascript">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Java Source File (JS).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Exe">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Application (EXE).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Access">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Access File (MDB).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXls">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel File (XLS).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXlam">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel Add-in File (XLAM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXlsb">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel Binary Workbook File (XLSB).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXltm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel Macro-Enabled Template File (XLTM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXlsm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel Macro-Enabled Workbook File (XLSM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.ExcelXlsx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Excel Spreadsheet File (XLSX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPpt">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint File (PPT).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPpam">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Add-in File (PPAM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointSldm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Macro-Enabled Slide File (SLDM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPptm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Macro-Enabled Presentation File (PPTM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPpsm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Macro-Enabled Slideshow File (PPSM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPotm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Macro-Enabled Template File (POTM).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPptx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Presentation File (PPTX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointSldx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Presentation Slide File (SLDX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPpsx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Presentation Slideshow File (PPSX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.PowerpointPotx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Powerpoint Presentation Presentation Template File (POTX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.VisioVsd">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Visio File (VSD).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.VisioVsdx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Visio 2013 File (VSDX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.WordDoc">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Word File (DOC).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.WordDocm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Word Macro-Enabled Document File (docm).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.WordDotm">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Word Macro-Enabled Template File (dotm).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.WordDocx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Word Document File (DOCX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.WordDotx">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a Microsoft Word Document Template File (DOTX).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Rar">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Application data is a RAR compressed archive (RAR).
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image">
+            <summary>
+            Specifies the type of image data in an email message attachment.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Gif">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Graphics Interchange Format (GIF).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Tiff">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Tagged Image File Format (TIFF).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Jpeg">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Joint Photographic Experts Group (JPEG) format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Png">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Portable Network Graphics (PNG) format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.PngCitrix">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Portable Network Graphics (PNG) citrix format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.PngX">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Portable Network Graphics (PNG) x-token format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Wmf">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Windows Metafile (WMF) format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Ico">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Icon (ICO) format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Svg">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Scalable Vector Graphics (SVG) format.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Image.Bmp">
+            <summary>
+            Specifies that the System.Net.Mime.MediaTypeNames.Image data is in Bitmap Image (BMP) format.
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web">
+            <summary>
+            Specifies the content type that can be used for HTTP requests.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.FormData">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Web data is in multipart form data.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.FormUrlEncoded">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Web data is in application form urlencoded (as params in the URL).
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.TextPlain">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in System.Net.Mime.MediaTypeNames.Text.Plain.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.Json">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in System.Net.Mime.MediaTypeNames.Application.Json.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.Js">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in MediaTypeNamesHelper.Helper.Application.Javascript.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.ApplicationXml">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in System.Net.Mime.MediaTypeNames.Application.Xml.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.TextXml">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in System.Net.Mime.MediaTypeNames.Text.Xml.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Web.TextHtml">
+            <summary>
+            Specifies that the MediaTypeNamesHelper.Web data is in System.Net.Mime.MediaTypeNames.Text.Html.
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding">
+            <summary>
+            Specifies the content type that can be used for Encoding.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.UTF7">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is UTF7.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.UTF8">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is UTF8.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.UTF32">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is UTF32.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.ASCII">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is ASCII.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.Unicode">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is Unicode.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.UnicodeUTF16LE">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is Unicode (UTF-16LE) for little endian byte order.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.BigEndianUnicode">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is BigEndianUnicode (UTF-16BE) for big endian byte order.
+            </summary>
+        </member>
+        <member name="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Encoding.ISO88591">
+            <summary>
+            Specifies that MediaTypeNamesHelper.Encoding data is ISO-8859-1.
+            </summary>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Utils.IOService">
+            <summary>
+            I/O service methods.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.IOService.GetContentTypeExtension(System.String,System.String,System.Boolean)">
+            <summary>
+            Get file name extension from <see cref="T:System.Net.Http.HttpResponseMessage"/> with or without a dot annotation according to the content type.
+            </summary>
+            <param name="contentTypeMediaType">Content type media type in a string format.</param>
+            <param name="contentDispositionFileName">(Optional) <see cref="P:System.Net.Http.HttpResponseMessage.Content"/> Headers.ContentDisposition.FileName to be extracted extension for <see cref="F:CustomHttpWrapperLibrary.Helpers.MediaTypeNamesHelper.Application.Octet"/> cases.</param>
+            <param name="withDotAnnotation">(Optional) Status that indicates the usage of a dot in the extension.</param>
+            <returns>File name extension extracted or empty if not found.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.IOService.SaveByteArrayToFile(System.String,System.Byte[])">
+            <summary>
+            Receive a file in a array of bytes format and save in a file full name path.
+            </summary>
+            <param name="fileNameFullPath">File path with drive, filename and extension to indicate where the file needs to be saved.</param>
+            <param name="byteArray">File in array of bytes' format.</param>
+            <returns>Status of the save.</returns>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Utils.SerializationService">
+            <summary>
+            Service to serialize and deserialize object to/from JSON.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.SerializationService.SerializeObjectToJSON(System.Object,System.Type,System.Text.Encoding)">
+            <summary>
+            Get an object and serialize it to JSON format according to a specific <see cref="T:System.Text.Encoding"/>.
+            </summary>
+            <param name="objData">Dynamic object with <see cref="T:System.Runtime.Serialization.DataMemberAttribute"/> properties to be serialized.</param>
+            <param name="objType">Object's <see cref="T:System.Type"/> used for identification in <see cref="T:System.Runtime.Serialization.Json.DataContractJsonSerializer"/>.</param>
+            <param name="serializationEnc">(Optional) Type of <see cref="T:System.Text.Encoding"/> used to read the object in a <see cref="T:System.IO.StreamReader"/>.</param>
+            <returns>Object serialized into a JSON format in a string.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.SerializationService.DeserializeObjectFromJSON``1(System.String,System.Text.Encoding,System.Type)">
+            <summary>
+            Get a JSON string and deserialize it to a dynamic &lt;T&gt; object or an override <see cref="T:System.Type"/> one.
+            </summary>
+            <typeparam name="T">Dynamic type param to be extracted its respective properties.</typeparam>
+            <param name="json">JSON data in a string format.</param>
+            <param name="serializationEnc">(Optional) Type of <see cref="T:System.Text.Encoding"/> used to put the object bytes to a buffer in a <see cref="T:System.IO.MemoryStream"/>.</param>
+            <param name="objTypeOverride">(Optional) Override of object <see cref="T:System.Type"/> to be used as object reference to <see cref="T:System.Runtime.Serialization.Json.DataContractJsonSerializer"/>.</param>
+            <returns>Dynamic object deserialized from a JSON string.</returns>
+        </member>
+        <member name="T:CustomHttpWrapperLibrary.Utils.WebService">
+            <summary>
+            Auxiliary web service for validations.
+            </summary>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.WebService.ValidateContentTypeValue(System.String)">
+            <summary>
+            Receive and check if a content type value is valid for processing.
+            </summary>
+            <param name="contentTypeVal"><see cref="T:System.Net.HttpWebRequest"/> ContentType passed as string.</param>
+            <returns>Validation status for the param content type.</returns>
+        </member>
+        <member name="M:CustomHttpWrapperLibrary.Utils.WebService.ValidateContentTypeCharset(System.String)">
+            <summary>
+            Receive and check if a content type charset value is valid for processing.
+            </summary>
+            <param name="contentTypeCharset"><see cref="T:System.Net.HttpWebRequest"/> ContentType charset passed as string.</param>
+            <returns>Validation status for the param content type charset.</returns>
+        </member>
+    </members>
+</doc>
